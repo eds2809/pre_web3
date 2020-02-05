@@ -50,7 +50,7 @@ public class UserService {
     }
 
     public boolean delUser(long id) {
-        return id > 0 && new UserHibernateDAO(getSession()).delUser(new User(id));
+        return new UserHibernateDAO(getSession()).delUser(new User(id));
     }
 
     public boolean addUser(String name) {

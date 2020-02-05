@@ -1,6 +1,5 @@
 package servlet;
 
-import model.User;
 import service.UserService;
 
 import javax.servlet.ServletException;
@@ -38,7 +37,7 @@ public class mainServlet extends HttpServlet {
                     );
                     break;
             }
-        } catch (NullPointerException ignored) {
+        } catch (NullPointerException | NumberFormatException ignored) {
 
         }
 

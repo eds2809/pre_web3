@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User {
     @Id
     @Column(name = "id")
@@ -13,6 +13,19 @@ public class User {
 
     @Column(name = "name")
     private String name;
+
+    @Column(name = "pass")
+    private String pass;
+
+    @Column(name = "age")
+    private Long age;
+
+    public User(Long id, String name, String pass, Long age) {
+        this.id = id;
+        this.name = name;
+        this.pass = pass;
+        this.age = age;
+    }
 
     public User(Long id, String name) {
         this.id = id;
@@ -27,8 +40,25 @@ public class User {
         this.id = id;
     }
 
-    public User(){
+    public User() {
 
+    }
+
+
+    public String getPass() {
+        return pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
+
+    public Long getAge() {
+        return age;
+    }
+
+    public void setAge(Long age) {
+        this.age = age;
     }
 
     public Long getId() {
