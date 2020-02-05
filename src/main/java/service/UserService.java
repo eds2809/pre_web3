@@ -46,23 +46,30 @@ public class UserService {
 
 
     public List<User> getAllUsers() {
-        return  new UserHibernateDAO(getSession()).getAllUsers();
+        return new UserHibernateDAO(getSession()).getAllUsers();
     }
 
     public boolean delUser(long id) {
         return new UserHibernateDAO(getSession()).delUser(new User(id));
     }
 
-    public boolean addUser(String name) {
-        return name != null && !name.isEmpty() && new UserHibernateDAO(getSession()).addUser(new User(name));
+    public boolean addUser(String name, String pass, Long age) {
+        return name != null &&
+                pass != null &&
+                !name.isEmpty() &&
+                !pass.isEmpty() &&
+                age > 0 &&
+                new UserHibernateDAO(getSession()).addUser(
+                        new User(name, pass, age)
+                );
     }
 
-    public boolean updateUser(long id, String name) {
-        User user = new User(id, name);
+    public boolean updateUser(long id, String name, String pass, Long age) {
+        User user = new User(id, name, pass, age);
         return user.validate() && new UserHibernateDAO(getSession()).update(user);
     }
 
-    private Session getSession(){
+    private Session getSession() {
         return sessionFactory.openSession();
     }
 }

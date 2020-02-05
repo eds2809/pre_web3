@@ -44,6 +44,12 @@ public class User {
 
     }
 
+    public User(String name, String pass, Long age) {
+        this.name = name;
+        this.pass = pass;
+        this.age = age;
+    }
+
 
     public String getPass() {
         return pass;
@@ -92,6 +98,6 @@ public class User {
     }
 
     public boolean validate() {
-        return name != null && !name.isEmpty() && id != 0;
+        return name != null && !name.isEmpty() && id > 0 && pass != null && !pass.isEmpty() && age > 0;
     }
 }

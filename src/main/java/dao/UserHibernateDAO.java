@@ -5,7 +5,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import javax.persistence.Query;
-import java.util.ArrayList;
 import java.util.List;
 
 public class UserHibernateDAO implements UserDao<User> {
@@ -46,9 +45,13 @@ public class UserHibernateDAO implements UserDao<User> {
     @Override
     public boolean update(User user) {
         Transaction transaction = session.beginTransaction();
-        Query query = session.createQuery("update User set name=:name where id=:id");
-        query.setParameter("name", user.getName() );
+        Query query = session.createQuery(
+                "update User set name=:name,pass=:pass,age=:age where id=:id"
+        );
+        query.setParameter("name", user.getName());
         query.setParameter("id", user.getId());
+        query.setParameter("age", user.getAge());
+        query.setParameter("pass", user.getPass());
         int result = query.executeUpdate();
         transaction.commit();
         session.close();
