@@ -22,14 +22,11 @@ public class UserDaoFactory {
     }
 
     public UserDao getUserDao() {
-        InputStream csv =
-                UserDaoFactory.class.getResourceAsStream("/WEB-INF/config.properties");
-        try /*(FileInputStream fis = new FileInputStream("/WEB-INF/config.properties"))*/ {
-            properties.load(csv);
+        try (InputStream input = getClass().getClassLoader().getResourceAsStream("../config.properties")) {
+            properties.load(input);
             return getUserDao(properties.getProperty("jpaType"));
         } catch (Exception ignored) {
-            ignored.printStackTrace();
         }
-        return new UserHibernateDAO();
+        return null;
     }
 }
