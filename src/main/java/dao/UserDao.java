@@ -4,12 +4,12 @@ import model.User;
 
 import java.util.List;
 
-public interface UserDao<T extends User> {
-    List<T> getAllUsers();
+public interface UserDao {
+    List<User> getAllUsers();
 
-    boolean addUser(T user);
+    boolean addUser(User user);
 
-    boolean delUser(T user);
+    boolean delUser(User user);
 
-    boolean update(T user);
+    boolean update(User user);
 }

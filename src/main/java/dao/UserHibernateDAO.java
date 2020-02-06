@@ -8,7 +8,7 @@ import util.DBHelper;
 import javax.persistence.Query;
 import java.util.List;
 
-public class UserHibernateDAO implements UserDao<User> {
+public class UserHibernateDAO implements UserDao {
 
     public UserHibernateDAO() {
 
