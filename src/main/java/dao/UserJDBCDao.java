@@ -2,8 +2,8 @@ package dao;
 
 import executor.Executor;
 import model.User;
+import util.DBHelper;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +11,8 @@ import java.util.List;
 public class UserJDBCDao implements UserDao<User> {
     private Executor executor;
 
-    public UserJDBCDao(Connection connection) {
-        executor = new Executor(connection);
+    public UserJDBCDao() {
+        executor = new Executor(DBHelper.getMysqlConnection());
     }
 
     @Override
@@ -21,7 +21,14 @@ public class UserJDBCDao implements UserDao<User> {
             return executor.execQuery("SELECT * FROM users", result -> {
                 List<User> users = new ArrayList<>();
                 while (result.next()) {
-                    users.add(new User(result.getLong("id"), result.getString("name")));
+                    users.add(
+                            new User(
+                                    result.getLong("id"),
+                                    result.getString("name"),
+                                    result.getString("pass"),
+                                    result.getLong("age")
+                            )
+                    );
                 }
                 return users;
             });

@@ -1,10 +1,8 @@
 package service;
 
-import dao.UserHibernateDAO;
+import dao.UserDao;
+import dao.UserJDBCDao;
 import model.User;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import util.DBHelper;
 
 import java.util.List;
 
@@ -12,45 +10,19 @@ public class UserService {
 
     public static UserService instance = new UserService();
 
-
-
-   /* private Connection connection;
-
-    private UserService() {
-        this.connection = DBHelper.getMysqlConnection();
-    }
-
-    public List<User> getAllUsers() {
-        return new UserJDBCDao(connection).getAllUsers();
-    }
-
-    public boolean addUser(String name) {
-        return name != null && !name.isEmpty() && new UserJDBCDao(connection).addUser(new User(name));
-    }
-
-    public boolean delUser(long id) {
-        return id != 0 && new UserJDBCDao(connection).delUser(new User(id));
-    }
-
-    public boolean updateUser(long id, String name) {
-        User user = new User(id, name);
-        return user.validate() && new UserJDBCDao(connection).update(user);
-    }*/
-
-
-    private SessionFactory sessionFactory;
+    //private UserDao<User> userDao = new UserHibernateDAO();
+    private UserDao<User> userDao = new UserJDBCDao();
 
     private UserService() {
-        this.sessionFactory = DBHelper.getSessionFactory();
     }
 
 
     public List<User> getAllUsers() {
-        return new UserHibernateDAO(getSession()).getAllUsers();
+        return userDao.getAllUsers();
     }
 
     public boolean delUser(long id) {
-        return new UserHibernateDAO(getSession()).delUser(new User(id));
+        return userDao.delUser(new User(id));
     }
 
     public boolean addUser(String name, String pass, Long age) {
@@ -59,17 +31,13 @@ public class UserService {
                 !name.isEmpty() &&
                 !pass.isEmpty() &&
                 age > 0 &&
-                new UserHibernateDAO(getSession()).addUser(
+                userDao.addUser(
                         new User(name, pass, age)
                 );
     }
 
     public boolean updateUser(long id, String name, String pass, Long age) {
         User user = new User(id, name, pass, age);
-        return user.validate() && new UserHibernateDAO(getSession()).update(user);
-    }
-
-    private Session getSession() {
-        return sessionFactory.openSession();
+        return user.validate() && userDao.update(user);
     }
 }

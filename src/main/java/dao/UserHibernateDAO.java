@@ -3,20 +3,24 @@ package dao;
 import model.User;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import util.DBHelper;
 
 import javax.persistence.Query;
 import java.util.List;
 
 public class UserHibernateDAO implements UserDao<User> {
 
-    private Session session;
+    public UserHibernateDAO() {
 
-    public UserHibernateDAO(Session session) {
-        this.session = session;
+    }
+
+    private Session getSession() {
+        return DBHelper.getSessionFactory().openSession();
     }
 
     @Override
     public List<User> getAllUsers() {
+        Session session = getSession();
         Query query = session.createQuery("from User");
         List<User> users = query.getResultList();
         session.close();
@@ -25,6 +29,7 @@ public class UserHibernateDAO implements UserDao<User> {
 
     @Override
     public boolean addUser(User user) {
+        Session session = getSession();
         Transaction transaction = session.beginTransaction();
         long id = (long) session.save(user);
         transaction.commit();
@@ -34,6 +39,7 @@ public class UserHibernateDAO implements UserDao<User> {
 
     @Override
     public boolean delUser(User user) {
+        Session session = getSession();
         Transaction transaction = session.beginTransaction();
         user = session.get(User.class,user.getId());
         session.delete(user);
@@ -44,6 +50,7 @@ public class UserHibernateDAO implements UserDao<User> {
 
     @Override
     public boolean update(User user) {
+        Session session = getSession();
         Transaction transaction = session.beginTransaction();
         Query query = session.createQuery(
                 "update User set name=:name,pass=:pass,age=:age where id=:id"

@@ -30,11 +30,10 @@
             </td>
 
             <td>
-                <input type="text" name="age">
+                <input type="number" name="age">
             </td>
 
             <td>
-                <input type="text" name="action" value="put" hidden>
                 <button type="submit">add</button>
             </td>
         </tr>
@@ -52,7 +51,7 @@
             <td>age</td>
         </tr>
         <c:forEach items="${users}" var="user">
-            <form method="post" action="/web3/" style="margin: 0;">
+            <form method="get" action="/web3/user/" style="margin: 0;">
                 <tr>
                     <td>
                         <input type="text" name="id" value="${user.id}" hidden>
@@ -67,16 +66,18 @@
                     </td>
 
                     <td>
-                        <input type="text" name="age" value="${user.age}">
+                        <input type="number" name="age" value="${user.age}">
                     </td>
 
                     <td>
-                        <input type="text" name="action" value="update" hidden>
                         <button type="submit">update</button>
                     </td>
                     <td>
-                        <button type="button" onclick="send('post','/web3/','action=delete&id=${user.id}' )">delete
-                        </button>
+                            <%-- <form method="post" action="/web3/user/" style="margin: 0;">
+                                 <input type="text" name="id" value="${user.id}" hidden>
+                                 <button type="submit">delete</button>
+                             </form>--%>
+                        <button type="button" onclick="send('post','/web3/user/','id=${user.id}' )">delete</button>
                     </td>
 
                 </tr>
