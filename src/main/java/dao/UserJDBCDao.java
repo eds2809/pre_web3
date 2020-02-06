@@ -34,7 +34,11 @@ public class UserJDBCDao implements UserDao<User> {
     @Override
     public boolean addUser(User user) {
         try {
-            return executor.execUpdate(String.format("INSERT INTO users (name) VALUES (\"%s\")", user.getName()));
+            return executor.execUpdate(
+                    String.format("INSERT INTO users (name,pass,age) VALUES (\"%s\",\"%s\",%d)",
+                            user.getName(), user.getPass(), user.getAge()
+                    )
+            );
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -55,8 +59,10 @@ public class UserJDBCDao implements UserDao<User> {
     public boolean update(User user) {
         try {
             return executor.execUpdate(
-                    String.format("UPDATE users SET name = \"%s\" WHERE id = %d",
+                    String.format("UPDATE users SET name = \"%s\", pass = \"%s\", age = %d WHERE id = %d",
                             user.getName(),
+                            user.getPass(),
+                            user.getAge(),
                             user.getId()
                     )
             );
