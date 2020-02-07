@@ -1,7 +1,7 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="pre_web3:war exploded">
+  <artifact type="war" build-on-make="true" name="pre_web3:war exploded">
     <output-path>$PROJECT_DIR$/out/artifacts/pre_web3_war_exploded</output-path>
-    <root id="root">
+    <root id="archive" name="pre_web3_war exploded.war">
       <element id="javaee-facet-resources" facet="pre_web3/web/Web" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
@@ -33,7 +33,6 @@
           <element id="library" level="project" name="Maven: org.jboss:jandex:2.1.1.Final" />
           <element id="library" level="project" name="Maven: org.jvnet.staxex:stax-ex:1.8" />
         </element>
-        <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/config.properties" />
       </element>
     </root>
   </artifact>

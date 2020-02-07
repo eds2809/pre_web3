@@ -22,7 +22,7 @@ public class UserDaoFactory {
     }
 
     public UserDao getUserDao() {
-        try (InputStream input = getClass().getClassLoader().getResourceAsStream("../config.properties")) {
+        try (InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties")) {
             properties.load(input);
             return getUserDao(properties.getProperty("jpaType"));
         } catch (Exception ignored) {
